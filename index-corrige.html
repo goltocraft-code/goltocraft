@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GoltoCraft — Serveur Minecraft Java & Bedrock</title>
+  <meta name="description" content="Site officiel de GoltoCraft, serveur Minecraft Java et Bedrock. Rejoignez la communauté et consultez le règlement.">
+  <meta name="theme-color" content="#22c55e">
+
+  <link rel="icon" href="images/logo.png">
+
+  <style>
+    :root {
+      --green: #22c55e;
+      --green-dark: #15803d;
+      --gold: #facc15;
+      --blue: #38bdf8;
+      --red: #ef4444;
+      --bg: #07120b;
+      --bg-2: #0c1d12;
+      --card: rgba(14, 32, 20, 0.90);
+      --card-border: rgba(255, 255, 255, 0.10);
+      --text: #f8fafc;
+      --muted: #b7c7bc;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(34, 197, 94, 0.12), transparent 32%),
+        linear-gradient(180deg, var(--bg), #040805);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      backdrop-filter: blur(14px);
+      background: rgba(4, 10, 6, 0.82);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      font-size: 1.25rem;
+    }
+
+    .brand img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      font-weight: 700;
+      color: #d8e7dc;
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+    }
+
+    .menu-button {
+      display: none;
+      border: 0;
+      background: rgba(255,255,255,.08);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 120px 0 70px;
+      position: relative;
+      isolation: isolate;
+      background:
+        linear-gradient(rgba(1, 7, 3, 0.58), rgba(1, 7, 3, 0.88)),
+        url("images/background.jpg") center/cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 170px;
+      background: linear-gradient(transparent, var(--bg));
+      z-index: -1;
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 900px;
+      animation: appear .7s ease-out;
+    }
+
+    .hero-logo {
+      width: min(520px, 90vw);
+      margin: 0 auto 24px;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,.55));
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 8vw, 6.4rem);
+      line-height: .95;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 5px 0 rgba(0,0,0,.35);
+    }
+
+    .hero h1 span {
+      color: var(--green);
+    }
+
+    .hero-subtitle {
+      margin: 22px auto 28px;
+      max-width: 720px;
+      color: #e3efe7;
+      font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .badge {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.13);
+      font-weight: 800;
+      color: #effff2;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .btn {
+      min-height: 52px;
+      padding: 14px 22px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 900;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: #031207;
+      box-shadow: 0 12px 30px rgba(34, 197, 94, 0.28);
+    }
+
+    .btn-primary:hover {
+      background: #4ade80;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.16);
+      color: white;
+    }
+
+    .copy-message {
+      margin-top: 16px;
+      min-height: 24px;
+      color: #bbf7d0;
+      font-weight: 800;
+    }
+
+    section {
+      padding: 92px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 42px;
+    }
+
+    .section-title span {
+      color: var(--green);
+      font-size: .85rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .section-title h2 {
+      margin-top: 8px;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+    }
+
+    .section-title p {
+      color: var(--muted);
+      max-width: 720px;
+      margin: 12px auto 0;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .server-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .info-card {
+      text-align: center;
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(34,197,94,.45);
+    }
+
+    .icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .info-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      word-break: break-word;
+    }
+
+    .join-box {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .server-address {
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 12px;
+      padding: 16px 18px;
+      font-family: Consolas, Monaco, monospace;
+      color: #bbf7d0;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .about-grid {
+      grid-template-columns: 1.25fr .75fr;
+      align-items: stretch;
+    }
+
+    .about-text h3 {
+      font-size: 1.7rem;
+      margin-bottom: 14px;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .features {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .feature {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: #e4f2e8;
+    }
+
+    .feature b {
+      color: var(--green);
+    }
+
+    .team-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      background:
+        radial-gradient(circle at top, rgba(34,197,94,.2), transparent 55%),
+        var(--card);
+    }
+
+    .team-card .role {
+      color: var(--green);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: .8rem;
+    }
+
+    .team-card h3 {
+      font-size: 2rem;
+      margin: 4px 0 18px;
+    }
+
+    .team-members {
+      display: grid;
+      gap: 12px;
+    }
+
+    .member {
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.07);
+    }
+
+    .rules {
+      display: grid;
+      gap: 16px;
+    }
+
+    .rule {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .rule-number {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(34,197,94,.15);
+      color: #86efac;
+      border: 1px solid rgba(34,197,94,.3);
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+
+    .rule h3 {
+      margin-bottom: 5px;
+    }
+
+    .rule p {
+      color: var(--muted);
+    }
+
+    .punishment {
+      color: #fecaca;
+      font-weight: 900;
+    }
+
+    .discord {
+      text-align: center;
+      background:
+        linear-gradient(135deg, rgba(88,101,242,.24), rgba(34,197,94,.10)),
+        var(--card);
+    }
+
+    .discord h2 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin-bottom: 12px;
+    }
+
+    .discord p {
+      max-width: 680px;
+      margin: 0 auto 24px;
+      color: #dbe4ff;
+    }
+
+    footer {
+      padding: 36px 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+      background: #030704;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      color: var(--muted);
+    }
+
+    .footer-content strong {
+      color: white;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .server-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-button {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        top: 82px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 18px;
+        border-radius: 16px;
+        background: rgba(4,10,6,.98);
+        border: 1px solid rgba(255,255,255,.1);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 10px 4px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .server-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .join-box {
+        grid-template-columns: 1fr;
+      }
+
+      .rule {
+        grid-template-columns: 44px 1fr;
+        gap: 13px;
+      }
+
+      .rule-number {
+        width: 44px;
+        height: 44px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      section {
+        padding: 72px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <nav class="nav container">
+      <a class="brand" href="#accueil">
+        <img src="images/logo.png" alt="Logo GoltoCraft">
+        <span>GoltoCraft</span>
+      </a>
+
+      <button class="menu-button" id="menuButton" aria-label="Ouvrir le menu">☰</button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#serveur">Serveur</a></li>
+        <li><a href="#equipe">Équipe</a></li>
+        <li><a href="#reglement">Règlement</a></li>
+        <li><a href="https://discord.gg/zCrKtVjvNp" target="_blank" rel="noopener noreferrer">Discord</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="hero-content container">
+        <img class="hero-logo" src="images/logo.png" alt="GoltoCraft">
+
+        <h1>Bienvenue sur <span>GoltoCraft</span></h1>
+
+        <p class="hero-subtitle">
+          Serveur Minecraft communautaire compatible Java et Bedrock grâce à Geyser.
+          Rejoins-nous pour construire, explorer et jouer dans une communauté conviviale.
+        </p>
+
+        <div class="badges">
+          <span class="badge">Java</span>
+          <span class="badge">Bedrock via Geyser</span>
+          <span class="badge">Serveur Premium</span>
+          <span class="badge">1.7.10 → 26.2</span>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" onclick="copyServerAddress()">
+            📋 Copier l'adresse
+          </button>
+
+          <a class="btn btn-secondary" href="https://discord.gg/zCrKtVjvNp" target="_blank" rel="noopener noreferrer">
+            💬 Rejoindre Discord
+          </a>
+        </div>
+
+        <div class="copy-message" id="copyMessage" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="serveur">
+      <div class="container">
+        <div class="section-title">
+          <span>Connexion</span>
+          <h2>Informations du serveur</h2>
+          <p>Utilise l'adresse ci-dessous pour rejoindre GoltoCraft.</p>
+        </div>
+
+        <div class="grid server-grid">
+          <article class="card info-card">
+            <div class="icon">🌍</div>
+            <h3>Adresse</h3>
+            <p>play.goltocraft.fr</p>
+          </article>
+
+          <article class="card info-card">
+            <div class="icon">🔌</div>
+            <h3>Port Bedrock</h3>
+            <p>25568</p>
+          </article>
+
+          <article class="card info-card">
+            <div class="icon">🧱</div>
+            <h3>Versions Java</h3>
+            <p>1.7.10 à 26.2</p>
+          </article>
+
+          <article class="card info-card">
+            <div class="icon">📱</div>
+            <h3>Bedrock</h3>
+            <p>Compatible grâce à Geyser</p>
+          </article>
+        </div>
+
+        <div class="card join-box">
+          <div class="server-address" id="serverAddress">play.goltocraft.fr:25568</div>
+          <button class="btn btn-primary" onclick="copyServerAddress()">Copier</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="equipe">
+      <div class="container">
+        <div class="section-title">
+          <span>Présentation</span>
+          <h2>La communauté GoltoCraft</h2>
+          <p>Un serveur créé pour réunir les joueurs Java et Bedrock.</p>
+        </div>
+
+        <div class="grid about-grid">
+          <article class="card about-text">
+            <h3>Bienvenue à tous</h3>
+
+            <p>
+              Bonjour à toute la communauté et bienvenue sur GoltoCraft.
+              Nous sommes ravis de vous accueillir sur le serveur.
+            </p>
+
+            <p>
+              Notre objectif est de proposer un environnement agréable, équitable et sécurisé.
+              Chaque joueur doit respecter les autres membres, leurs constructions et le travail du staff.
+            </p>
+
+            <div class="features">
+              <div class="feature"><b>✔</b><span>Compatibilité Java et Bedrock avec Geyser.</span></div>
+              <div class="feature"><b>✔</b><span>Protection des constructions et des bases.</span></div>
+              <div class="feature"><b>✔</b><span>Communauté encadrée par un règlement clair.</span></div>
+              <div class="feature"><b>✔</b><span>Serveur Premium.</span></div>
+            </div>
+          </article>
+
+          <aside class="card team-card">
+            <span class="role">Crédits</span>
+            <h3>Équipe fondatrice</h3>
+
+            <div class="team-members">
+              <div class="member">
+                <strong>Nathan</strong><br>
+                Fondateur
+              </div>
+
+              <div class="member">
+                <strong>Max</strong><br>
+                Co-fondateur
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="reglement">
+      <div class="container">
+        <div class="section-title">
+          <span>À respecter</span>
+          <h2>Règlement de GoltoCraft</h2>
+          <p>Le règlement s'applique à l'ensemble des serveurs et espaces communautaires GoltoCraft.</p>
+        </div>
+
+        <div class="rules">
+          <article class="card rule">
+            <div class="rule-number">1</div>
+            <div>
+              <h3>Grief interdit</h3>
+              <p>
+                Il est interdit de détruire ou de modifier la base d'un autre joueur,
+                qu'elle soit protégée par un claim ou non.
+                <span class="punishment">Sanction : bannissement de 7 jours.</span>
+              </p>
+            </div>
+          </article>
+
+          <article class="card rule">
+            <div class="rule-number">2</div>
+            <div>
+              <h3>Triche interdite</h3>
+              <p>
+                Les hacks, cheats, X-Ray, logiciels interdits et comportements de troll sont interdits.
+                <span class="punishment">Sanction : bannissement définitif sur les deux serveurs.</span>
+              </p>
+            </div>
+          </article>
+
+          <article class="card rule">
+            <div class="rule-number">3</div>
+            <div>
+              <h3>Respect des joueurs et du staff</h3>
+              <p>
+                Les insultes, provocations et comportements irrespectueux sont interdits.
+                Les joueurs doivent respecter les consignes des modérateurs et des administrateurs.
+                <span class="punishment">Sanction possible : bannissement de 12 heures.</span>
+              </p>
+            </div>
+          </article>
+
+          <article class="card rule">
+            <div class="rule-number">4</div>
+            <div>
+              <h3>Skins inappropriés</h3>
+              <p>
+                Les skins nazis, haineux, offensants ou volontairement provocateurs sont interdits.
+                <span class="punishment">Sanction : bannissement définitif.</span>
+              </p>
+            </div>
+          </article>
+
+          <article class="card rule">
+            <div class="rule-number">5</div>
+            <div>
+              <h3>Publicité et vidéos</h3>
+              <p>
+                Il est interdit de publier des vidéos YouTube, publicités ou liens promotionnels
+                sur le serveur Minecraft ou sur le Discord sans autorisation du fondateur.
+                <span class="punishment">Sanction : bannissement direct.</span>
+              </p>
+            </div>
+          </article>
+
+          <article class="card rule">
+            <div class="rule-number">6</div>
+            <div>
+              <h3>Partage de compte interdit</h3>
+              <p>
+                Le partage de compte entre amis est strictement interdit.
+                Ne communique jamais ton mot de passe GoltoCraft.
+                Tu es responsable de toutes les actions effectuées avec ton compte.
+                <span class="punishment">Sanction possible : bannissement d'une semaine.</span>
+              </p>
+            </div>
+          </article>
+
+          <article class="card rule">
+            <div class="rule-number">7</div>
+            <div>
+              <h3>Freekill interdit</h3>
+              <p>
+                Il est interdit de tuer des joueurs sans raison.
+                Pour combattre, utilise la zone Box PvP prévue à cet effet.
+                <span class="punishment">Sanction : bannissement de 4 jours.</span>
+              </p>
+            </div>
+          </article>
+
+          <article class="card rule">
+            <div class="rule-number">8</div>
+            <div>
+              <h3>Pièges mortels interdits</h3>
+              <p>
+                Les pièges à trous et les mécanismes destinés à tuer d'autres joueurs sont interdits.
+                En cas d'identification par un membre du staff,
+                <span class="punishment">la sanction est un bannissement de 2 jours.</span>
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="card discord">
+          <h2>Rejoins la communauté</h2>
+          <p>
+            Consulte les annonces, demande de l'aide et échange avec les joueurs sur le Discord officiel de GoltoCraft.
+          </p>
+
+          <a class="btn btn-primary" href="https://discord.gg/zCrKtVjvNp" target="_blank" rel="noopener noreferrer">
+            Ouvrir le Discord
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <p><strong>GoltoCraft</strong> — Serveur Minecraft Java & Bedrock</p>
+      <p>Fondateur : Nathan · Co-fondateur : Max</p>
+    </div>
+  </footer>
+
+  <script>
+    const serverAddress = "play.goltocraft.fr:25568";
+    const copyMessage = document.getElementById("copyMessage");
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
+
+    async function copyServerAddress() {
+      try {
+        await navigator.clipboard.writeText(serverAddress);
+        copyMessage.textContent = "Adresse copiée : " + serverAddress;
+      } catch (error) {
+        copyMessage.textContent = "Copie manuelle : " + serverAddress;
+      }
+
+      window.setTimeout(() => {
+        copyMessage.textContent = "";
+      }, 3500);
+    }
+
+    menuButton.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+      });
+    });
+  </script>
+</body>
+</html>

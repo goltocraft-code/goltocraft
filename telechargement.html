@@ -579,7 +579,7 @@
 <section><div class="container">
 <article class="card download-card">
 <div class="icon">🚀</div><h2>Goltocraft Launcher</h2>
-<p>Le bouton est prêt à recevoir le lien direct de ton fichier <strong>Goltocraft-Launcher-Setup.exe</strong>.</p>
+<p>Télécharge la dernière version de <strong>Goltocraft Launcher</strong> pour Windows.</p>
 <a class="btn btn-primary" id="downloadButton" href="#" onclick="startDownload(event)">⬇ Télécharger le launcher</a>
 <div class="progress-shell" id="progressShell">
 <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
@@ -596,13 +596,9 @@ menuButton.addEventListener("click",()=>navLinks.classList.toggle("open"));
 document.querySelectorAll(".nav-links a").forEach(l=>l.addEventListener("click",()=>navLinks.classList.remove("open")));
 
 // Remplace cette valeur par l'URL directe de Goltocraft-Launcher-Setup.exe
-const LAUNCHER_URL="";
+const LAUNCHER_URL="https://github.com/goltocraft-code/goltocraft/releases/latest/download/Goltocraft-Launcher-Setup.exe";
 function startDownload(e){
   e.preventDefault();
-  if(!LAUNCHER_URL){
-    alert("Ajoute d'abord le lien direct du fichier Goltocraft-Launcher-Setup.exe dans LAUNCHER_URL.");
-    return;
-  }
   const shell=document.getElementById("progressShell"),bar=document.getElementById("progressBar"),
         pct=document.getElementById("progressPercent"),status=document.getElementById("progressStatus");
   shell.style.display="block"; let value=0;
